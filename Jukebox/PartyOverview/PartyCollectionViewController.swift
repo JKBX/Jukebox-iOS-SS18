@@ -17,6 +17,7 @@ class PartyCollectionViewController: UICollectionViewController {
     var ref: DatabaseReference!
     var hostParties:[NSDictionary] = []
     var guestParties:[NSDictionary] = []
+    var selectedParty:NSDictionary = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,35 +104,33 @@ class PartyCollectionViewController: UICollectionViewController {
             return self.guestParties.count
         }
     }
+    
+    func getParty(for indexPath: IndexPath) -> NSDictionary{
+        switch indexPath.section {
+        case 0:
+            return self.hostParties[indexPath.item]
+        default:
+            return self.guestParties[indexPath.item]
+        }
+    }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
                                                       for: indexPath) as! PartyCollectionViewCell
-        
-        if indexPath.item >= hostParties.count{
-            let index = indexPath.item - hostParties.count
-            // Get Image from Firebase Store
-            let imagePath = guestParties[index].object(forKey: "imagePath") as! String
-            let imageReference = Storage.storage().reference(withPath: imagePath)
-            imageReference.getData(maxSize: 1 * 512 * 512) { data, error in
-                if let error = error {print(error)}
-                else { cell.Image.image = UIImage(data: data!) }
-            }
-            cell.Label.text = guestParties[index].object(forKey: "Name") as! String
+        let party = getParty(for: indexPath)
+        let imagePath = party.object(forKey: "imagePath") as! String
+        if imagePath.contains("default") {
+            print("From assets")
+            cell.Image.image = UIImage(named: imagePath)
         } else {
-            // Get Image from Firebase Store
-            let imagePath = hostParties[indexPath.item].object(forKey: "imagePath") as! String
             let imageReference = Storage.storage().reference(withPath: imagePath)
             imageReference.getData(maxSize: 1 * 512 * 512) { data, error in
                 if let error = error {print(error)}
                 else { cell.Image.image = UIImage(data: data!) }
             }
-            cell.Label.text = hostParties[indexPath.item].object(forKey: "Name") as! String
+            cell.Label.text = party.object(forKey: "Name") as! String
         }
-        
-        
-        
         return cell
     }
     
@@ -168,27 +167,41 @@ class PartyCollectionViewController: UICollectionViewController {
         return true
     }
     */
-
-    /*
+    
+    //TODO Long press to remove
+    
     // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
-    */
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedParty = getParty(for: indexPath)
+        self.performSegue(withIdentifier: "showParty", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showParty" {
+            let controller = segue.destination as! PartyPlaylistViewController
+            controller.party = self.selectedParty
+            self.selectedParty = [:]
+        }
+    }
 
-    /*
+    
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
+    /*override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        return true
     }
 
     override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
+        return true
     }
 
     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        print(indexPath)
+        self.performSegue(withIdentifier: "showParty", sender: self)
     
-    }
-    */
+    }*/
+    
 
 }

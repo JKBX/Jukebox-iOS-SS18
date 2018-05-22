@@ -26,6 +26,7 @@
 		1762A2E120910290003C868A /* NotificationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1762A2E020910290003C868A /* NotificationConstants.swift */; };
 		1762A2E3209105B2003C868A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1762A2E2209105B2003C868A /* LoginViewController.swift */; };
 		1778DEC620A8895D001454C3 /* PartyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1778DEC520A8895D001454C3 /* PartyCollectionViewCell.swift */; };
+		1781533B20B449CE00850657 /* PartyPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1781533A20B449CE00850657 /* PartyPlaylistViewController.swift */; };
 		17CB208520A329DA003F1AAE /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17CB208420A329DA003F1AAE /* Auth.storyboard */; };
 		17CB208720A33682003F1AAE /* PartyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CB208620A33682003F1AAE /* PartyCollectionViewController.swift */; };
 		17CB208A20A33C3C003F1AAE /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CB208920A33C3C003F1AAE /* SectionHeader.swift */; };
@@ -89,6 +90,7 @@
 		1762A2E020910290003C868A /* NotificationConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationConstants.swift; sourceTree = "<group>"; };
 		1762A2E2209105B2003C868A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1778DEC520A8895D001454C3 /* PartyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyCollectionViewCell.swift; sourceTree = "<group>"; };
+		1781533A20B449CE00850657 /* PartyPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyPlaylistViewController.swift; sourceTree = "<group>"; };
 		17CB208420A329DA003F1AAE /* Auth.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		17CB208620A33682003F1AAE /* PartyCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyCollectionViewController.swift; sourceTree = "<group>"; };
 		17CB208920A33C3C003F1AAE /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				1778DEC520A8895D001454C3 /* PartyCollectionViewCell.swift */,
 				17CB209020A34BBF003F1AAE /* CreatePartyViewController.swift */,
 				17CB209220A34BCD003F1AAE /* JoinPartyViewController.swift */,
+				1781533A20B449CE00850657 /* PartyPlaylistViewController.swift */,
 			);
 			path = PartyOverview;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				17CB209320A34BCD003F1AAE /* JoinPartyViewController.swift in Sources */,
 				1762A2982090B3B1003C868A /* AppDelegate.swift in Sources */,
 				17E477132093687E0055BB04 /* MainViewController.swift in Sources */,
+				1781533B20B449CE00850657 /* PartyPlaylistViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
