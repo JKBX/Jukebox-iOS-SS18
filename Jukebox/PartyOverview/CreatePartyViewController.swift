@@ -8,13 +8,24 @@
 
 import UIKit
 
-class CreatePartyViewController: UIViewController {
+class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     var playlists: [SPTPartialPlaylist] = []
+    var pickerDataSource = ["White", "Red", "Green", "Blue"]
+    let picker:UIPickerView = UIPickerView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //let picker = UIPickerView()
+        self.picker.translatesAutoresizingMaskIntoConstraints = false
+        self.picker.dataSource = self
+        self.picker.delegate = self
+        view.addSubview(self.picker)
+        
+        picker.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        picker.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        picker.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         // Do any additional setup after loading the view.
         
         // Load Playlist Data For Fallback
@@ -30,6 +41,7 @@ class CreatePartyViewController: UIViewController {
             } else {
                 print("Done loading Playlists")
                 print(self.playlists)
+                self.picker.reloadAllComponents()
             }
         }
         SPTPlaylistList.playlists(forUser: user, withAccessToken: accessToken, callback: callback)
@@ -47,9 +59,23 @@ class CreatePartyViewController: UIViewController {
             } else {
                 print("Done loading Playlists")
                 print(self.playlists)
+                self.picker.reloadAllComponents()
             }
         }
         playlists.requestNextPage(withAccessToken: accessToken, callback: callback)
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.playlists.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        print(self.playlists[row].name)
+        return self.playlists[row].name
     }
     
     @IBAction func done(_ sender: Any) {
